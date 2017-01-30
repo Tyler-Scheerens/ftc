@@ -1,0 +1,27 @@
+---
+- name: Install django
+  pip: name='{{ item }}' state=present
+  items:
+    - django
+    - django-rest-swagger
+
+- name: Create django server project
+  command: django-admin.py startproject server {{ server_root }}
+
+- name: Copy django configuration
+  template: src=settings.py dest='{{ server_dir }}'
+
+- name: Django makemigrations
+  command: python manage.py makemigrations chdir='{{ server_root }}'
+
+- name: Django migrate
+  command: python manage.py migrate chdir='{{ server_root }}'
+
+- name: Django createsuperuser
+  expect:
+    command: python manage.py createsuperuser
+    chdir: '{{ server_root }}'
+    responses:
+      (?i)username: '{{ server_user }}'
+      (?i)email: '{{ server_email }}'
+      (?i)password: '{{ server_password }}'
