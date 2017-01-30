@@ -1,0 +1,12 @@
+---
+# postgres
+db_name: accounts
+db_user: admin
+db_password: admin
+
+# django
+server_root: ../
+server_dir: '{{ server_root}}server'
+server_user: admin
+server_email: ''
+server_password: adminpassword
