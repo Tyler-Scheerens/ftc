@@ -1,0 +1,14 @@
+---
+- name: Install dovecot
+  yum: name={{ item }} state=present
+  with_items:
+    - dovecot.x86_64
+    - dovecot-pgsql.x86_64
+
+- name: Copy dovecot configuration
+  template: src=dovecot.conf dest=/etc/dovecot/dovecot.conf
+  notify: restart dovecot
+
+- name: Dovecot service state
+  service: name=dovecot state=started enabled=yes
+

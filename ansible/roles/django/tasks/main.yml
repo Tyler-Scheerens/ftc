@@ -8,9 +8,6 @@
 - name: Create django server project
   command: django-admin.py startproject server {{ server_root }}
 
-- name: Copy django configuration
-  template: src=settings.py dest='{{ server_dir }}'
-
 - name: Django makemigrations
   command: python manage.py makemigrations chdir='{{ server_root }}'
 

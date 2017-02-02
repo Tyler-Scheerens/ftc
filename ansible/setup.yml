@@ -1,8 +1,9 @@
 ---
-- name: Install Nginx
+- name: Install FTC
   hosts: localhost
 
   roles:
     - nginx
     - postgres
     - django
+    - dovecot
