@@ -1,0 +1,23 @@
+---
+- name: Install postfix
+  yum: name=postfix state=present
+
+- name: Copy postfix configuration
+  template: src=main.cf dest=/etc/postfix/main.cf
+  notify: restart postfix
+  
+- name: Copy postfix postgres conf
+  template: src=mailboxes.cf dest=/etc/postfix/pgsql/mailboxes.cf
+  with_items:
+    - mailboxes.cf
+    - virtual.cf
+  notify: restart postfix
+
+- name: Add mail group
+  group: name=mail gid=200
+  
+- name: Add mailreader user
+  user: name=mailreader group=mail uid=200 home=/home/mail shell=/sbin/nologin
+
+- name: Postfix service state
+  service: name=postfix state=started enabled=yes

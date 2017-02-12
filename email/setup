@@ -1,0 +1,11 @@
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/mail.key -out /etc/ssl/certs/mailcert.pem
+
+/etc/ssl/certs/mailcert.pem
+/etc/ssl/private/mail.key
+
+-- don't use this in prod
+
+https://www.digitalocean.com/community/tutorials/how-to-set-up-a-postfix-e-mail-server-with-dovecot
+
+
+
