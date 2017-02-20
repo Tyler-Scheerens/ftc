@@ -1,0 +1,12 @@
+driver = pgsql
+connect = host=127.0.0.1 dbname=accounts user=mailreader password=mailreaderpw
+default_pass_scheme = SSHA
+
+password_query = \
+    SELECT vmail_mailuser.username || '@' || vmail_domain.fqdn as user, vmail_mailuser.shadigest as password \
+    FROM vmail_mailuser \
+         INNER JOIN vmail_domain ON (vmail_mailuser.domain_id = vmail_domain.id) \
+    WHERE vmail_mailuser.username = '%n' AND \
+         vmail_domain.fqdn = '%d' AND \
+         vmail_domain.active=TRUE AND \
+         vmail_mailuser.active=TRUE

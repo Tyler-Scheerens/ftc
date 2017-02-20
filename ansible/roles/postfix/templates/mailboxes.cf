@@ -1,7 +1,6 @@
-user=mailreader
-password=mailreaderpw
-dbname=accounts
-table=users
-select_field=maildir
-where_field=email
-hosts=localhost
+user = mailreader
+password = mailreaderpw
+hosts = 127.0.0.1
+dbname = accounts
+
+query = SELECT 1 FROM vmail_mailuser INNER JOIN vmail_domain ON (vmail_mailuser.domain_id = vmail_domain.id) WHERE vmail_mailuser.username='%u' AND vmail_domain.fqdn='%d' AND vmail_domain.active=TRUE AND vmail_mailuser.active=TRUE

@@ -1,0 +1,6 @@
+user = mailreader
+password = mailreaderpw
+hosts = 127.0.0.1
+dbname = accounts
+
+query = SELECT 1 FROM vmail_domain WHERE vmail_domain.fqdn='%s' AND vmail_domain.active=TRUE

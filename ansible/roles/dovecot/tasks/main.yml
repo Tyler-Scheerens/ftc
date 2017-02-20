@@ -6,7 +6,18 @@
     - dovecot-pgsql.x86_64
 
 - name: Copy dovecot configuration
-  template: src=dovecot.conf dest=/etc/dovecot/dovecot.conf
+  template: src={{ item }} dest=/etc/dovecot/{{ item }}
+  with_items:
+    - dovecot.conf
+    - dovecot-sql.conf.ext
+  notify: restart dovecot
+
+- name: Copy dovecot conf.d
+  template: src={{ item }} dest=/etc/dovecot/conf.d/{{ item }}
+  with_items:
+    - 10-auth.conf
+    - 10-master.conf
+    - 10-mail.conf
   notify: restart dovecot
 
 - name: Dovecot service state

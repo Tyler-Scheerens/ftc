@@ -16,16 +16,25 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from server import views
+from ftc import ftc_views
+from vmail import vmail_views
+from rest_framework.schemas import get_schema_view
+from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 
 
 router = routers.DefaultRouter()
-router.register(r'groups', views.GroupViewSet)
-router.register(r'users', views.UserViewSet)
+router.register(r'groups', ftc_views.GroupViewSet)
+router.register(r'users', ftc_views.UserViewSet)
+
+router.register(r'domains', vmail_views.DomainViewSet)
+router.register(r'mailusers', vmail_views.MailUserViewSet)
+router.register(r'aliases', vmail_views.AliasViewSet)
+
+schema_view = get_schema_view(title='FTC API', renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer])
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include(router.urls)),
-    url(r'^docs/', views.schema_view, name="docs")
+    url(r'^api/', include(router.urls)),
+    url(r'^swagger', schema_view, name="docs"),
 ]
 

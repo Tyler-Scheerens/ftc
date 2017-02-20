@@ -1,0 +1,6 @@
+user = mailreader
+password = mailreaderpw
+hosts = 127.0.0.1
+dbname = accounts
+
+query = SELECT vmail_alias.destination FROM vmail_alias INNER JOIN vmail_domain ON (vmail_alias.domain_id = vmail_domain.id) WHERE vmail_alias.source = '%s' AND vmail_domain.active=TRUE AND vmail_alias.active=TRUE

@@ -6,11 +6,15 @@
   template: src=main.cf dest=/etc/postfix/main.cf
   notify: restart postfix
   
+- name: Create postfix psql conf dir
+  file: path=/etc/postfix/pgsql state=directory
+  
 - name: Copy postfix postgres conf
-  template: src=mailboxes.cf dest=/etc/postfix/pgsql/mailboxes.cf
+  template: src={{ item }} dest=/etc/postfix/pgsql/{{ item }}
   with_items:
+    - aliases.cf
+    - domains.cf
     - mailboxes.cf
-    - virtual.cf
   notify: restart postfix
 
 - name: Add mail group

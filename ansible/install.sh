@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yum install -y epel-release yum-priorities python2-pip python-devel
+yum install -y epel-release yum-priorities python2-pip python-devel telnet
 
 pip install --upgrade pip
 pip install --upgrade setuptools
@@ -21,3 +21,9 @@ setsebool -P httpd_can_network_connect 1
 #postconf -c /etc/postfix -m | grep sql
 #  mysql
 #  pgsql
+
+#/etc/sysconfig/selinux disabled
+#/etc/hosts - 192.168.1.101   server.unixmen.local      server
+
+#/etc/sysconfig/iptables-config
+#-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT

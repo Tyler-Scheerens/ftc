@@ -1,8 +1,6 @@
 from django.contrib.auth.models import Group, User
 from rest_framework import serializers, viewsets
 from rest_framework.decorators import renderer_classes
-from rest_framework.schemas import get_schema_view
-from rest_framework_swagger.renderers import SwaggerUIRenderer, OpenAPIRenderer
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -44,5 +42,3 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-
-schema_view = get_schema_view(title='FTC API', renderer_classes=[OpenAPIRenderer, SwaggerUIRenderer])
